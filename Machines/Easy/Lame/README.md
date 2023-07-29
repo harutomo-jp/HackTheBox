@@ -49,6 +49,31 @@ In the terminal I ran the command ```sudo nmap -sS -sV -O -vvv --top-ports 500 l
 * `--top-ports` - This specifies Nmap to scan the number of ports by order of most common port numbers.  In the case of my scan, Nmap will scan the 500 most commonly used ports.
 * `lame.htb` - This is the host that is being scanned.
 
+From the scan, we can see that there are several different services being run on the machine.
+
+* <b>Port 21</b>: Port 21 is running the FTP or file transfer protocol service vsftpd version 2.3.4
+* <b>Port 22</b>: Port 22 is running the SSH or Secure Shell services OpenSSH version 4.7p1
+* <b>Port 139 & 445</b>: These two ports are used to run the SMB package called Samba but the version number cannot quite be determined by the Nmap scan.
+
+Metasploit has a tool that will allow us to determine the exact version number of Samba being run on the machine. ```auxiliary/scanner/smb/smb_version```
+
+<p align="center"><img src="./img/samba-version.png"></p>
+
+The scan determines that the machine is running Samba version <b>3.0.20</b>.
+
+Finding the version's release date on https://www.samba.org/samba/history/samba-3.0.20.html shows that this version was releasted in 2005, meaning that it is a relatively ANCIENT version of Samba and that there should be a good number of vulnerabilities to choose from.
 
 ### Exploitation and Foothold
 ---
+
+Searching online, I quickly found a vulnerability that was disclosed back in 2007 called CVE-2007-2447 that allows for RCE.
+
+This vulnerability is caused by Samba passing unfiltered user input in MS-RPC calls to /bin/sh when invoking non-default ```"username map script"``` configuration options in ```smb.comf```, so no authentication is needed to exploit the vulnerability.
+
+A more detailed explanation of this exploit can be found on Oussama Amri's security blog: https://amriunix.com/post/cve-2007-2447-samba-usermap-script/
+
+More information about how to exploit the vulnerability can be found at https://0x00sec.org/t/cvexplained-cve-2007-2447/22748
+
+Another simple POC of how to use the exploit using smbclient in the terminal can be found here: https://github.com/b1fair/smb_usermap
+
+essentially, in  ```./source/lib/smbrun.c```
