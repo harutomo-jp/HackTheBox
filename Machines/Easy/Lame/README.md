@@ -76,4 +76,3 @@ More information about how to exploit the vulnerability can be found at https://
 
 Another simple POC of how to use the exploit using smbclient in the terminal can be found here: https://github.com/b1fair/smb_usermap
 
-essentially, in  ```./source/lib/smbrun.c```
