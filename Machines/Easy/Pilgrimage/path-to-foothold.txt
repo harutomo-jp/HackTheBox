@@ -1,0 +1,13 @@
+use nikto against host, discover that there are git files
+
+use git-dumper tool (found at: https://github.com/arthaud/git-dumper)
+
+find binary magick, check the version by running ./magick -version
+
+find it's vulnerable to CVE-2022-44268
+
+github exploit to make malicious PNG files: https://github.com/voidz0r/CVE-2022-44268
+
+file read acquired, in dashboard.php find the sqlite db file at var/db/pilgrimage (  $db = new PDO('sqlite:/var/db/pilgrimage');) line 14
+
+find credentials for user emily emily:abigchonkyboi123
