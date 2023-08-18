@@ -1,0 +1,3 @@
+# HackTheBox - Jupiter
+
+### Rating: MEDIUM
