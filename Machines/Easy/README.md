@@ -1,1 +1,0 @@
-### HackTheBox Machines - Easy Rating

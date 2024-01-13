@@ -1,3 +1,0 @@
-https://gtfobins.github.io/gtfobins/systemctl/#sudo
-
-check sudo -l

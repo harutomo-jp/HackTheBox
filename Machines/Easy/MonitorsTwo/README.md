@@ -1,3 +1,0 @@
-# HackTheBox - MonitorsTwo
-
-### rating: easy
